@@ -17,3 +17,7 @@ Terminal - alacritty
 ```
 https://github.com/alacritty/alacritty
 ***
+
+# Examples
+![First](https://github.com/IdanKoblik/dotfiles/blob/main/screenshots/Screenshot%20from%202023-09-10%2001-29-49.png)
+![Second](https://github.com/IdanKoblik/dotfiles/blob/main/screenshots/Screenshot%20from%202023-09-10%2001-29-58.png)
