@@ -173,7 +173,7 @@ install() {
   fi
 
   package=$1
-  query=$(pacman -Ss "$package")
+  query=$(yay -S "$package")
 
   selected_package=$(echo "$query" | fzf --height 40% --preview 'pacman -Si {1}')
   if [ -n "$selected_package" ]; then
