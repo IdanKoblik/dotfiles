@@ -73,7 +73,7 @@ esac
 
 # To disable the uses of "sudo" by oh-my-bash, please set "false" to
 # this variable.  The default behavior for the empty value is "true".
-OMB_USE_SUDO=true
+#OMB_USE_SUDO=true
 
 # To enable/disable display of Python virtualenv and condaenv
 # OMB_PROMPT_SHOW_PYTHON_VENV=true  # enable
@@ -105,6 +105,132 @@ plugins=(
   git
   bashmarks
 )
+
+# Pywal
+[[ -f "${HOME}/.cache/wal/sequences" ]] && cat "${HOME}/.cache/wal/sequences"
+[[ -f "${HOME}/.cache/wal/colors.sh" ]] && source "${HOME}/.cache/wal/colors.sh"
+
+# Shell - design
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+ 
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+ 
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+#Regular text color
+BLACK='\[\e[0;30m\]'
+#Bold text color
+BBLACK='\[\e[1;30m\]'
+#background color
+BGBLACK='\[\e[40m\]'
+RED='\[\e[0;31m\]'
+BRED='\[\e[1;31m\]'
+BGRED='\[\e[41m\]'
+GREEN='\[\e[0;32m\]'
+BGREEN='\[\e[1;32m\]'
+BGGREEN='\[\e[1;32m\]'
+YELLOW='\[\e[0;33m\]'
+BYELLOW='\[\e[1;33m\]'
+BGYELLOW='\[\e[1;33m\]'
+BLUE='\[\e[0;34m\]'
+BBLUE='\[\e[1;34m\]'
+BGBLUE='\[\e[1;34m\]'
+MAGENTA='\[\e[0;35m\]'
+BMAGENTA='\[\e[1;35m\]'
+BGMAGENTA='\[\e[1;35m\]'
+CYAN='\[\e[0;36m\]'
+BCYAN='\[\e[1;36m\]'
+BGCYAN='\[\e[1;36m\]'
+WHITE='\[\e[0;37m\]'
+BWHITE='\[\e[1;37m\]'
+BGWHITE='\[\e[1;37m\]'
+ 
+PROMPT_COMMAND=smile_prompt
+ 
+function smile_prompt
+{
+if [ "$?" -eq "0" ]
+then
+#smiley
+SC="${GREEN}:)"
+else
+#frowney
+SC="${RED}:("
+fi
+if [ $UID -eq 0 ]
+then
+#root user color
+UC="${RED}"
+else
+#normal user color
+UC="${BWHITE}"
+fi
+#hostname color
+HC="${BBLUE}"
+#regular color
+RC="${BWHITE}"
+#default color
+DF='\[\e[0m\]'
+
+GIT_INFO='\[$(git branch 2>/dev/null | grep "^*" | sed "s/* / (/;s/$/)/")\]'
+if type __git_ps1 >/dev/null 2>&1; then
+    GIT_INFO='\[$(__git_ps1 " (%s)")\]'
+fi
+
+PS1="[${UC}\u${RC}@${HC}\h ${RC}\W${BWHITE}${GIT_INFO}${DF}] ${SC}${DF} "
+}
+ 
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+ 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+ 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+ 
+# Do a ls after a cd
+cd() { builtin cd "$@" && ls -a; }
+ 
+#ignore upper and lowercase when TAB completion
+bind "set completion-ignore-case on"
+ 
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# # Load Git prompt support if available
+if [ -f /usr/share/git/git-prompt.sh ]; then
+    . /usr/share/git/git-prompt.sh
+fi
+
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
 # Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
@@ -145,15 +271,35 @@ plugins=(
 #
 # My dumb things
 export PATH=/home/idan/.local/bin:$PATH
-alias ls="exa -ll --icons"
+#alias ls="exa -ll --icons"
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 neofetch
 
+# Dotned
 export PATH="$PATH:/home/idan/.dotnet/tools"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 bind -x '"\C-r": fzf_files'
+bind -x '"\C-f": find_ssh_host'
+
+alias ls="exa -l --icons"
+alias vi="lvim"
+
+find_ssh_host() {
+  # Fetch the list of hosts from your SSH known hosts file and pass it to fzf
+  local host=$(awk '{print $1}' ~/.ssh/known_hosts | sort | uniq | fzf --preview 'echo {}' --height 40% --border)
+  
+  if [ -n "$host" ]; then
+    READLINE_LINE="$READLINE_LINE$host"
+    READLINE_POINT=${#READLINE_LINE}
+  else
+    echo "No host selected"
+  fi
+}
+
 
 fzf_files() {
   local selected_file
@@ -164,27 +310,15 @@ fzf_files() {
   fi
 }
 
-install() {
-  local package query selected_package
+#eval "$(starship init bash)"
 
-  if [ -z "$1" ]; then
-    echo "Usage: install <package>"
-    return 1
-  fi
+export PATH=$HOME/.npm-global/bin:$PATH
 
-  package=$1
-  query=$(yay -S "$package")
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
-  selected_package=$(echo "$query" | fzf --height 40% --preview 'pacman -Si {1}')
-  if [ -n "$selected_package" ]; then
-    local package_name
-    package_name=$(echo "$selected_package" | awk '{print $1 "/" $2}')
-    sudo pacman -S "$package_name"
-  else
-    echo "No package selected."
-  fi
-}
-
-
-eval "$(starship init bash)"
-
+# Go
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"

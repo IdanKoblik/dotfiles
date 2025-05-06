@@ -7,6 +7,6 @@ tailscale_ip=$(tailscale ip)
 if [ -z "$tailscale_ip" ]; then
     echo "Not found"  # Icon for disconnected or IP not found
 else
-    echo "$tailscale_ip"  # Icon for connected
+    echo ts: "$tailscale_ip"  # Icon for connected
 fi
 
