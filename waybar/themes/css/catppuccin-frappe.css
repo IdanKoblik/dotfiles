@@ -1,0 +1,44 @@
+/* Crimson Dark Theme */
+
+@define-color crimson-main    #8A3A36;
+@define-color crimson-soft    #733232;
+@define-color crimson-light   #A95454;
+
+@define-color white           #ffffff;
+@define-color black           #000000;
+
+@define-color main-fg         #EBDADA;
+@define-color main-bg         #241C1C;
+@define-color main-br         @main-fg;
+@define-color shadow          shade(@crimson-main, 0.5);
+
+/* State Colors */
+@define-color warning         #D2A150;
+@define-color critical        #BF4B4B;
+@define-color charging        @main-fg;
+
+/* Interactions */
+@define-color active-bg       @crimson-soft;
+@define-color active-fg       @main-fg;
+
+@define-color hover-bg        @crimson-light;
+@define-color hover-fg        alpha(@main-fg, 0.8);
+
+/* Modules */
+@define-color module-fg       @main-fg;
+@define-color workspaces      @crimson-main;
+
+@define-color temperature     @crimson-soft;
+@define-color memory          @crimson-main;
+@define-color cpu             @crimson-soft;
+@define-color distro-fg       @black;
+@define-color distro-bg       @crimson-light;
+@define-color time            @crimson-main;
+@define-color date            @crimson-soft;
+@define-color tray            @crimson-main;
+
+@define-color pulseaudio      @crimson-soft;
+@define-color backlight       @crimson-soft;
+@define-color battery         @crimson-light;
+@define-color power           @crimson-main;
+
