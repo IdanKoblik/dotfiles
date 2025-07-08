@@ -4,6 +4,9 @@ case $- in
     *) return;;
 esac
 
+source $HOME/.git-prompt.sh
+export PS1='[\u@\h \W]$(__git_ps1 " (%s)")\$ ' 
+
 # Path to your oh-my-bash installation.
 #export OSH='/home/idan/.oh-my-bash'
 
@@ -117,113 +120,13 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
- 
-#export LESS_TERMCAP_mb=$'\e[1;32m'
-#export LESS_TERMCAP_md=$'\e[1;32m'
-#export LESS_TERMCAP_me=$'\e[0m'
-#export LESS_TERMCAP_se=$'\e[0m'
-#export LESS_TERMCAP_so=$'\e[01;33m'
-#export LESS_TERMCAP_ue=$'\e[0m'
-#export LESS_TERMCAP_us=$'\e[1;4;31m'
-#
-##Regular text color
-#BLACK='\[\e[0;30m\]'
-##Bold text color
-#BBLACK='\[\e[1;30m\]'
-##background color
-#BGBLACK='\[\e[40m\]'
-#RED='\[\e[0;31m\]'
-#BRED='\[\e[1;31m\]'
-#BGRED='\[\e[41m\]'
-#GREEN='\[\e[0;32m\]'
-#BGREEN='\[\e[1;32m\]'
-#BGGREEN='\[\e[1;32m\]'
-#YELLOW='\[\e[0;33m\]'
-#BYELLOW='\[\e[1;33m\]'
-#BGYELLOW='\[\e[1;33m\]'
-#BLUE='\[\e[0;34m\]'
-#BBLUE='\[\e[1;34m\]'
-#BGBLUE='\[\e[1;34m\]'
-#MAGENTA='\[\e[0;35m\]'
-#BMAGENTA='\[\e[1;35m\]'
-#BGMAGENTA='\[\e[1;35m\]'
-#CYAN='\[\e[0;36m\]'
-#BCYAN='\[\e[1;36m\]'
-#BGCYAN='\[\e[1;36m\]'
-#WHITE='\[\e[0;37m\]'
-#BWHITE='\[\e[1;37m\]'
-#BGWHITE='\[\e[1;37m\]'
-# 
-#PROMPT_COMMAND=smile_prompt
-# 
-#function smile_prompt
-#{
-#if [ "$?" -eq "0" ]
-#then
-##smiley
-#SC="${GREEN}:)"
-#else
-##frowney
-#SC="${RED}:("
-#fi
-#if [ $UID -eq 0 ]
-#then
-##root user color
-#UC="${RED}"
-#else
-##normal user color
-#UC="${BWHITE}"
-#fi
-##hostname color
-#HC="${BBLUE}"
-##regular color
-#RC="${BWHITE}"
-##default color
-#DF='\[\e[0m\]'
-#
-#GIT_INFO='\[$(git branch 2>/dev/null | grep "^*" | sed "s/* / (/;s/$/)/")\]'
-#if type __git_ps1 >/dev/null 2>&1; then
-#    GIT_INFO='\[$(__git_ps1 " (%s)")\]'
-#fi
-#
-#PS1="[${UC}\u${RC}@${HC}\h ${RC}\W${BWHITE}${GIT_INFO}${DF}] ${SC}${DF} "
-#}
-# 
-## User specific environment
-#if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-#then
-#    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-#fi
-#export PATH
-# 
-## set PATH so it includes user's private bin if it exists
-#if [ -d "$HOME/bin" ] ; then
-#    PATH="$HOME/bin:$PATH"
-#fi
-# 
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
  
 #ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
-
-export DOCKER_HOST=unix:///run/docker.sock
-
-# enable bash completion in interactive shells
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-# # Load Git prompt support if available
-if [ -f /usr/share/git/git-prompt.sh ]; then
-    . /usr/share/git/git-prompt.sh
-fi
-
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
 # Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
@@ -292,32 +195,16 @@ find_ssh_host() {
   fi
 }
 
-
-fzf_files() {
-  local selected_file
-  selected_file=$(find . -type f -not -path '*/.*' | fzf --height 40%)
-  if [[ -n "$selected_file" ]]; then
-    READLINE_LINE="$READLINE_LINE$selected_file"
-    READLINE_POINT=${#READLINE_LINE}
-  fi
-}
-
-#eval "$(starship init bash)"
-
+# npm
 export PATH=$HOME/.npm-global/bin:$PATH
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# docker
+export DOCKER_HOST=unix:///run/docker.sock
+
 # Go
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-[[ -s "/home/idan/.gvm/scripts/gvm" ]] && source "/home/idan/.gvm/scripts/gvm"
-# Enable programmable sdb completion features.
-if [ -f ~/.sdb/.sdb-completion.bash ]; then
- source ~/.sdb/.sdb-completion.bash
-fi
