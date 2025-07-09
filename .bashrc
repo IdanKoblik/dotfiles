@@ -177,11 +177,17 @@ export APARTIUM_ENVIRONMENT=LOCAL_TESTING
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-bind -x '"\C-r": fzf_files'
 bind -x '"\C-f": find_ssh_host'
+bind -x '"\C-p": projects'
 
 alias ls="exa -l --icons"
 alias vi="lvim"
+
+projects() {
+  local dir
+    dir=$(find ~/Projects/* -mindepth 1 -maxdepth 1 -type d | fzf --prompt="Select project: ") || return
+  cd "$dir" || return
+}
 
 find_ssh_host() {
   # Fetch the list of hosts from your SSH known hosts file and pass it to fzf
