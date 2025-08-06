@@ -1,7 +1,7 @@
-require('onedark').setup {
-  style = 'dark', -- or 'darker', 'cool', etc.
-  transparent = true, -- this is the key setting
+require('kanso').setup {
+  transparent = true,
+  theme = 'zen',
 }
-
-require('onedark').load()
+require('kanso')
+require('kanso').load()
 

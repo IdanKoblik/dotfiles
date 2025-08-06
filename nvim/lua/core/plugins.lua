@@ -20,8 +20,20 @@ require("lazy").setup({
   {
     "navarasu/onedark.nvim",
     name = "onedark",
-    priority = 1000,
+    priority = 900,
   },
+
+  {
+   "webhooked/kanso.nvim",
+   lazy = false,
+   priority = 1000,
+  },
+
+  -- Error diagnostics
+  "folke/trouble.nvim",
+
+  -- tabline
+  { 'alvarosevilla95/luatab.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
   -- matcher
   "wurli/visimatch.nvim",
@@ -44,7 +56,6 @@ require("lazy").setup({
     end,
   },
 
-
   { "neovim/nvim-lspconfig" },        
   { "hrsh7th/nvim-cmp" },            
   { "hrsh7th/cmp-nvim-lsp" },            
@@ -53,7 +64,17 @@ require("lazy").setup({
   { "hrsh7th/cmp-path" },
   { "saadparwaiz1/cmp_luasnip" },
 
+  -- Markdown
+  'MeanderingProgrammer/render-markdown.nvim',
+  dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+
   -- Status line
   'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' }
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
+
+  -- lens
+  "Maan2003/lsp_lines.nvim",
+
+  -- Discord
+  {"jiriks74/presence.nvim", event = "UIEnter",},
 })

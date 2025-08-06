@@ -1,20 +1,20 @@
-/* Crimson Dark Theme */
+/* Kansō Zen - Darkened Variant */
 
-@define-color crimson-main    #8A3A36;
-@define-color crimson-soft    #733232;
-@define-color crimson-light   #A95454;
+@define-color crimson-main    #5f73a2;  /* Darker Fuji Blue */
+@define-color crimson-soft    #444b6a;  /* Darker soft accent */
+@define-color crimson-light   #7c839e;  /* Still lighter, but subdued */
 
 @define-color white           #ffffff;
 @define-color black           #000000;
 
-@define-color main-fg         #EBDADA;
-@define-color main-bg         #241C1C;
+@define-color main-fg         #c8c0a0;  /* Slightly muted Kansō fg */
+@define-color main-bg         #16161e;  /* Darker Zen background */
 @define-color main-br         @main-fg;
 @define-color shadow          shade(@crimson-main, 0.5);
 
 /* State Colors */
-@define-color warning         #D2A150;
-@define-color critical        #BF4B4B;
+@define-color warning         #b97f48;   /* Darkened yellow/orange */
+@define-color critical        #a03c3c;   /* Muted Kansō red */
 @define-color charging        @main-fg;
 
 /* Interactions */
