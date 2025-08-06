@@ -5,7 +5,7 @@ case $- in
 esac
 
 source $HOME/.git-prompt.sh
-export PS1='[\u@\h \W]$(__git_ps1 " (%s)")\$ ' 
+
 
 # Path to your oh-my-bash installation.
 #export OSH='/home/idan/.oh-my-bash'
@@ -167,9 +167,7 @@ bind "set completion-ignore-case on"
 #
 # My dumb things
 export PATH=/home/idan/.local/bin:$PATH
-#alias ls="exa -ll --icons"
-
-neofetch
+alias ls="exa --icons"
 
 # Dotned
 export PATH="$PATH:/home/idan/.dotnet/tools"
@@ -180,8 +178,10 @@ export APARTIUM_ENVIRONMENT=LOCAL_TESTING
 bind -x '"\C-f": find_ssh_host'
 bind -x '"\C-p": projects'
 
-alias ls="exa -l --icons"
+alias ls="exa -ll --icons"
 alias vi="lvim"
+
+colorscript -r
 
 projects() {
   local dir
@@ -213,4 +213,6 @@ export DOCKER_HOST=unix:///run/docker.sock
 
 # Go
 export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
+#export PATH="$GOENV_ROOT/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
+
