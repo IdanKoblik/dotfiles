@@ -1,0 +1,138 @@
+/**
+ * Polybar-Themed Rofi Style
+ * Matches default polybar color scheme
+ */
+
+* {
+  background:     #222222;
+  background-alt: #2b2b2b;
+  foreground:     #dfdfdf;
+  selected:       #5294e2;
+  accent:         #7dcfff;
+}
+
+/***** Configuration *****/
+configuration {
+  modi: "drun";
+  show-icons: true;
+  display-drun: "";
+  drun-display-format: "{name}";
+}
+
+/***** Window *****/
+window {
+  location: center;
+  anchor: center;
+  fullscreen: false;
+  width: 1000px;
+  x-offset: 0px;
+  y-offset: 0px;
+
+  enabled: true;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid;
+  border-radius: 6px;
+  border-color: @selected;
+  background-color: @background;
+  cursor: default;
+}
+
+/***** Main Box *****/
+mainbox {
+  enabled: true;
+  spacing: 20px;
+  margin: 0px;
+  padding: 40px;
+  border: 0px solid;
+  border-radius: 0px;
+  background-color: transparent;
+  children: [ "inputbar", "listview" ];
+}
+
+/***** Input Bar *****/
+inputbar {
+  enabled: true;
+  spacing: 10px;
+  margin: 0px 500px 0px 0px;
+  padding: 12px;
+  border: 0px 0px 0px 4px;
+  border-radius: 0px 100% 100% 0px;
+  border-color: @selected;
+  background-color: @background-alt;
+  text-color: @foreground;
+  children: [ "prompt", "entry" ];
+}
+prompt, textbox-prompt-colon, entry {
+  background-color: inherit;
+  text-color: inherit;
+}
+textbox-prompt-colon {
+  str: "::";
+}
+
+/***** List View *****/
+listview {
+  enabled: true;
+  columns: 6;
+  lines: 4;
+  spacing: 10px;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid;
+  background-color: transparent;
+  text-color: @foreground;
+  cursor: default;
+}
+
+/***** Scrollbar *****/
+scrollbar {
+  handle-width: 5px;
+  handle-color: @selected;
+  background-color: @background-alt;
+  border-radius: 4px;
+}
+
+/***** Elements *****/
+element {
+  spacing: 10px;
+  padding: 10px 12px;
+  background-color: transparent;
+  text-color: @foreground;
+  orientation: vertical;
+  cursor: pointer;
+}
+element normal.normal {
+  background-color: transparent;
+  text-color: @foreground;
+}
+element selected.normal {
+  border: 0px 0px 0px 4px;
+  background-color: @background-alt;
+  border-color: @selected;
+  text-color: @foreground;
+}
+element-icon {
+  size: 48px;
+  text-color: inherit;
+}
+element-text {
+  highlight: inherit;
+  text-color: inherit;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}
+
+/***** Error Message *****/
+error-message {
+  padding: 40px;
+  background-color: black / 10%;
+  text-color: @foreground;
+}
+textbox {
+  text-color: @foreground;
+  highlight: none;
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+}
+

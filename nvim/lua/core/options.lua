@@ -1,0 +1,11 @@
+vim.opt.mouse = "a"
+vim.opt.number = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 3 
+vim.opt.tabstop = 3
+vim.opt.smartindent = true
+vim.opt.wrap = false
+vim.opt.termguicolors = true
+vim.opt.cursorline = true
+
