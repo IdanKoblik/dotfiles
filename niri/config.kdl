@@ -37,6 +37,16 @@ config-notification {
     position x=1280 y=0
 }
 
+cursor {
+    // xcursor-theme "GoogleDot-Black"
+    // xcursor-size 24
+
+    xcursor-theme "clay-dar"
+    xcursor-size 28
+
+    hide-when-typing
+    hide-after-inactive-ms 1000
+}
 
 gestures {
     hot-corners {
@@ -186,9 +196,11 @@ overview {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+
+spawn-at-startup "sh" "-c" "~/Projects/personal/zaatar/main.py -u | ~/Projects/personal/baguette/baguette --full"
+spawn-at-startup "xwayland-satellite"
 spawn-at-startup "dunst"
-spawn-at-startup "sh" "-c" "awww-daemon & sleep 1 && awww img ~/Pictures/background4.png"
+spawn-at-startup "sh" "-c" "awww-daemon & sleep 1 && awww img ~/Pictures/linux.png"
 environment {
   XDG_CURRENT_DESKTOP "niri"
 }
@@ -446,6 +458,11 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    // === Volume Controls ===
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+
     // === System Controls ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 }

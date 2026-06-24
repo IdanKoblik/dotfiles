@@ -5,9 +5,9 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // === Application Launchers ===
-    Mod+Return hotkey-overlay-title="Open Terminal" { spawn "kitty"; }
+    Mod+Return hotkey-overlay-title="Open Terminal" { spawn "foot"; }
     Mod+Space hotkey-overlay-title="Application Launcher" {
-        spawn "/home/idan/.config/rofi/launchers/type-1/launcher.sh";
+        spawn "fuzzel";
     }
 
     Mod+Alt+L { spawn "swaylock"; }
@@ -144,6 +144,11 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    // === Volume Controls ===
+    XF86AudioRaiseVolume { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"; }
+    XF86AudioLowerVolume { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
+    XF86AudioMute { spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ toggle"; }
+
     // === System Controls ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 }
